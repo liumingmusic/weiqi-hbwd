@@ -1,0 +1,5 @@
+{
+  "name": "佳佳围棋",
+  "description": "A sophisticated 19x19 Go/Weiqi application featuring AI opponents (Beginner to Advanced), handicap support, SGF export, and territory scoring powered by Google Gemini.",
+  "requestFramePermissions": []
+}
