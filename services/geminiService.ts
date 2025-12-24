@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { StoneColor, Difficulty, AiMode } from "../types";
+import { StoneColor, Difficulty, AiMode, TsumegoProblem } from "../types";
 import { makeMove, getGroupInfo, getHoshiPoints, getOpponent } from "../utils/goLogic";
 
 // --- HELPERS ---

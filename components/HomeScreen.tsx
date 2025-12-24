@@ -1,17 +1,18 @@
 import React from 'react';
-import { Play, History, Trophy, Heart } from 'lucide-react';
+import { Play, History, Trophy, Heart, Brain } from 'lucide-react';
 
 interface HomeScreenProps {
   onNewGame: () => void;
   onHistory: () => void;
+  onTsumego: () => void;
 }
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory }) => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory, onTsumego }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full p-6 animate-in fade-in duration-700">
       
       {/* Title Section */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-10">
         <div className="w-24 h-24 bg-stone-900 text-stone-100 rounded-2xl mx-auto flex items-center justify-center text-6xl font-serif shadow-2xl mb-6 border-4 border-stone-800 relative group">
           禅
           <div className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
@@ -23,7 +24,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory }) => {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col gap-4 w-full max-w-xs">
+      <div className="flex flex-col gap-3 w-full max-w-xs">
         <button 
           onClick={onNewGame}
           className="group relative w-full py-4 bg-stone-900 text-white text-lg font-bold rounded-xl shadow-lg hover:bg-stone-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3"
@@ -31,6 +32,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory }) => {
           <Play className="w-5 h-5 fill-current" />
           <span>开始新局</span>
           <div className="absolute inset-0 rounded-xl ring-2 ring-white/10 group-hover:ring-white/20"></div>
+        </button>
+
+        <button 
+          onClick={onTsumego}
+          className="w-full py-4 bg-amber-600 text-white text-lg font-bold rounded-xl shadow-md hover:bg-amber-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3"
+        >
+          <Brain className="w-5 h-5" />
+          <span>死活题练习</span>
         </button>
 
         <button 
@@ -43,7 +52,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory }) => {
       </div>
 
       {/* Footer Decoration */}
-      <div className="mt-16 text-stone-400 text-sm flex flex-col items-center gap-4">
+      <div className="mt-12 text-stone-400 text-sm flex flex-col items-center gap-4">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-stone-400"></div>

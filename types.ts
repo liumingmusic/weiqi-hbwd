@@ -1,7 +1,7 @@
 
 export type StoneColor = 'black' | 'white';
 export type PlayerType = 'human' | 'ai';
-export type GamePhase = 'home' | 'setup' | 'playing' | 'scoring' | 'finished';
+export type GamePhase = 'home' | 'setup' | 'playing' | 'scoring' | 'finished' | 'tsumego-list' | 'tsumego-playing';
 export type Difficulty = 'novice' | 'entry' | 'beginner' | 'elementary' | 'intermediate' | 'advanced' | 'master' | 'grandmaster';
 export type BoardTheme = 'wood' | 'warm' | 'green' | 'dark' | 'paper';
 export type AiMode = 'local' | 'online';
@@ -42,4 +42,24 @@ export interface ScoreResult {
   komi: number;
   winner: StoneColor;
   margin: number;
+}
+
+export interface TsumegoNode {
+    // Key is "x,y" of the user's move
+    [key: string]: {
+        response?: Point; // AI's response move
+        next?: TsumegoNode; // Next set of valid branches
+        status: 'correct' | 'wrong' | 'continue';
+        message?: string; // Feedback message
+    };
+}
+
+export interface TsumegoProblem {
+    id: string;
+    title: string;
+    description: string;
+    difficulty: Difficulty;
+    boardSize: number;
+    initialStones: { x: number, y: number, color: StoneColor }[];
+    solutionTree: TsumegoNode;
 }
