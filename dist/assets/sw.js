@@ -1,8 +1,8 @@
 const CACHE_NAME = 'zengo-v3';
 // Use explicit relative paths for files to ensure matching with manifest.json
 const URLS_TO_CACHE = [
-  './index.html',
-  './manifest.json'
+  '/weiqi-hbwd/dist/index.html',
+  '/weiqi-hbwd/dist/assets/manifest.json'
 ];
 
 // Install event: Cache core static assets
