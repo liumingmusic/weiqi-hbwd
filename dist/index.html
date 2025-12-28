@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#e3c08d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>黑白问道 - 围棋 AI</title>
+    <link rel="manifest" href="./assets/manifest-Cz4cgH20.json" />
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/4603/4603952.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+      body {
+        font-family: 'Inter', sans-serif;
+        overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile PWA */
+      }
+      /* Custom wood texture effect using CSS patterns */
+      .wood-texture {
+        background-color: #e3c08d;
+        background-image: 
+          linear-gradient(45deg, rgba(0,0,0,0.03) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.03) 75%, rgba(0,0,0,0.03)), 
+          linear-gradient(45deg, rgba(0,0,0,0.03) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.03) 75%, rgba(0,0,0,0.03));
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+      }
+      @keyframes stoneDrop {
+        0% { transform: scale(1.4); opacity: 0; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+        100% { transform: scale(1); opacity: 1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+      }
+      .animate-stone-drop {
+        animation: stoneDrop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+  }
+}
+</script>
+  <script type="module" crossorigin src="./assets/index-D8_9FO04.js"></script>
+</head>
+  <body class="bg-stone-100 text-stone-900 select-none">
+    <div id="root"></div>
+</body>
+</html>
