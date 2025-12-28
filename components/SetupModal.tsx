@@ -99,22 +99,22 @@ const SetupModal: React.FC<SetupModalProps> = ({ onStart, onCancel }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in duration-200 relative max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-4 sm:p-6 animate-in fade-in zoom-in duration-200 relative max-h-[95vh] overflow-y-auto">
         <button 
             onClick={onCancel}
-            className="absolute top-4 right-4 text-stone-400 hover:text-stone-800 p-1 rounded-full hover:bg-stone-100 transition-colors z-10"
+            className="absolute top-3 right-3 text-stone-400 hover:text-stone-800 p-1 rounded-full hover:bg-stone-100 transition-colors z-10"
         >
             <X className="w-5 h-5" />
         </button>
 
-        <h2 className="text-xl font-bold text-stone-800 mb-6 flex items-center gap-2">
+        <h2 className="text-lg sm:text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
           <Grip className="w-5 h-5 text-amber-600" />
           对局设置
         </h2>
 
         {/* Board Preview Area */}
         <div 
-            className={`w-full h-32 mb-6 rounded-xl relative shadow-inner overflow-hidden flex items-center justify-center transition-colors duration-500 ${preview.className}`}
+            className={`w-full h-24 sm:h-32 mb-4 sm:mb-6 rounded-xl relative shadow-inner overflow-hidden flex items-center justify-center transition-colors duration-500 ${preview.className}`}
             style={{ backgroundColor: preview.backgroundColor }}
         >
             {/* Fake Grid */}
@@ -131,8 +131,8 @@ const SetupModal: React.FC<SetupModalProps> = ({ onStart, onCancel }) => {
             </div>
             
             {/* Sample Stones */}
-            <div className="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-gray-800 to-black shadow-lg ring-1 ring-white/10 animate-stone-drop"></div>
-            <div className="absolute top-1/2 right-1/3 -translate-y-1/2 translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-white to-gray-200 shadow-lg ring-1 ring-black/10 animate-stone-drop" style={{animationDelay: '0.1s'}}></div>
+            <div className="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-gray-800 to-black shadow-lg ring-1 ring-white/10 animate-stone-drop"></div>
+            <div className="absolute top-1/2 right-1/3 -translate-y-1/2 translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-white to-gray-200 shadow-lg ring-1 ring-black/10 animate-stone-drop" style={{animationDelay: '0.1s'}}></div>
             
             <div className="absolute bottom-2 right-3 text-[10px] font-mono opacity-50 uppercase tracking-widest">
                 {boardSize}路 • {themes.find(t=>t.id===boardTheme)?.name}
@@ -140,28 +140,28 @@ const SetupModal: React.FC<SetupModalProps> = ({ onStart, onCancel }) => {
         </div>
 
         {/* AI Mode & Difficulty */}
-        <div className="mb-5 p-3 bg-stone-50 rounded-xl border border-stone-100">
+        <div className="mb-4 p-3 bg-stone-50 rounded-xl border border-stone-100">
              <label className="text-xs font-bold text-stone-500 uppercase tracking-wider mb-2 block">AI 引擎</label>
-             <div className="flex gap-2 mb-4">
+             <div className="flex gap-2 mb-3">
                  <button
                     onClick={() => setAiMode('local')}
-                    className={`flex-1 py-2 rounded-lg text-sm font-medium border flex items-center justify-center gap-1.5 transition-all ${
+                    className={`flex-1 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium border flex items-center justify-center gap-1.5 transition-all ${
                         aiMode === 'local' 
                         ? 'bg-white border-amber-500 text-amber-700 shadow-sm ring-1 ring-amber-500' 
                         : 'bg-stone-100 border-transparent text-stone-500 hover:bg-white hover:border-stone-300'
                     }`}
                  >
-                    <Zap className="w-4 h-4" /> 本地 (极速)
+                    <Zap className="w-3 h-3 sm:w-4 sm:h-4" /> 本地 (极速)
                  </button>
                  <button
                     onClick={() => setAiMode('online')}
-                    className={`flex-1 py-2 rounded-lg text-sm font-medium border flex items-center justify-center gap-1.5 transition-all ${
+                    className={`flex-1 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium border flex items-center justify-center gap-1.5 transition-all ${
                         aiMode === 'online' 
                         ? 'bg-white border-blue-500 text-blue-700 shadow-sm ring-1 ring-blue-500' 
                         : 'bg-stone-100 border-transparent text-stone-500 hover:bg-white hover:border-stone-300'
                     }`}
                  >
-                    <CloudLightning className="w-4 h-4" /> 云端 (强力)
+                    <CloudLightning className="w-3 h-3 sm:w-4 sm:h-4" /> 云端 (强力)
                  </button>
              </div>
 
@@ -170,7 +170,7 @@ const SetupModal: React.FC<SetupModalProps> = ({ onStart, onCancel }) => {
                     <button
                         key={d.id}
                         onClick={() => setDifficulty(d.id as Difficulty)}
-                        className={`py-1.5 text-xs font-medium rounded-md transition-all ${
+                        className={`py-1.5 text-[10px] sm:text-xs font-medium rounded-md transition-all ${
                         difficulty === d.id ? 'bg-white text-stone-900 shadow-sm font-bold' : 'text-stone-500 hover:text-stone-700'
                         }`}
                     >
@@ -237,7 +237,7 @@ const SetupModal: React.FC<SetupModalProps> = ({ onStart, onCancel }) => {
                             key={t.id}
                             onClick={() => setBoardTheme(t.id)}
                             title={t.name}
-                            className={`w-8 h-8 rounded-full border-2 shadow-sm transition-transform hover:scale-110 ${boardTheme === t.id ? 'border-amber-600 ring-2 ring-amber-100' : 'border-stone-200'}`}
+                            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 shadow-sm transition-transform hover:scale-110 ${boardTheme === t.id ? 'border-amber-600 ring-2 ring-amber-100' : 'border-stone-200'}`}
                             style={{ backgroundColor: t.color }}
                         />
                     ))}
@@ -252,14 +252,14 @@ const SetupModal: React.FC<SetupModalProps> = ({ onStart, onCancel }) => {
                     max="9" 
                     value={handicap} 
                     onChange={(e) => setHandicap(parseInt(e.target.value))}
-                    className="w-32 h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-800"
+                    className="w-24 sm:w-32 h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-stone-800"
                 />
             </div>
         </div>
 
         <button
           onClick={handleStart}
-          className="w-full py-3.5 bg-amber-600 text-white text-lg font-bold rounded-xl hover:bg-amber-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98]"
+          className="w-full py-3 bg-amber-600 text-white text-base sm:text-lg font-bold rounded-xl hover:bg-amber-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98]"
         >
           <Play className="w-5 h-5 fill-current" />
           开始对局

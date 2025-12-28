@@ -93,7 +93,7 @@ const GoBoard: React.FC<GoBoardProps> = ({
         {/* Main Board Area */}
         <div 
         ref={boardRef}
-        className={`relative select-none p-1 sm:p-2 transition-colors duration-500 ${styles.className || ''}`}
+        className={`relative select-none p-0.5 sm:p-2 transition-colors duration-500 ${styles.className || ''}`}
         style={{
             width: '100%',
             aspectRatio: '1/1',
@@ -156,21 +156,19 @@ const GoBoard: React.FC<GoBoardProps> = ({
 
         {/* Atmospheric Status/Result Footer */}
         {config && (
-            <div className={`relative p-4 text-white flex items-center justify-between overflow-hidden ${styles.footer}`}>
+            <div className={`relative px-3 py-3 sm:px-4 sm:py-4 text-white flex items-center justify-between overflow-hidden min-h-[80px] sm:min-h-[90px] ${styles.footer}`}>
                  {/* Background Effects for Game Over */}
                 {isGameOver && (
                     <div className={`absolute inset-0 bg-gradient-to-r ${winnerColor === 'black' ? 'from-amber-900/50 via-stone-900/50 to-stone-900' : 'from-stone-900 via-stone-900/50 to-amber-900/50'} z-0`}></div>
                 )}
 
                 {/* Black Player Info */}
-                <div className={`relative z-10 flex flex-col items-center gap-2 transition-all duration-500 min-w-[80px] ${!isGameOver && currentTurn === 'black' ? 'scale-105 opacity-100' : 'opacity-70'} ${isGameOver && winnerColor !== 'black' ? 'blur-[1px] opacity-40' : ''}`}>
-                    <div className={`relative flex items-center gap-2 px-3 py-1.5 rounded-full ${!isGameOver && currentTurn === 'black' ? 'bg-white/10 ring-1 ring-white/20 shadow-lg' : ''}`}>
-                        <div className="w-4 h-4 rounded-full bg-black ring-1 ring-white/30 shadow-sm"></div>
-                        <span className="text-sm font-bold tracking-wide text-stone-100">
+                <div className={`relative z-10 flex flex-col items-center gap-1.5 transition-all duration-500 ${isGameOver ? 'scale-75 opacity-30 blur-[0.5px]' : (currentTurn === 'black' ? 'scale-105 opacity-100' : 'opacity-70')} `}>
+                    <div className={`relative flex items-center gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full ${!isGameOver && currentTurn === 'black' ? 'bg-white/10 ring-1 ring-white/20 shadow-lg' : ''}`}>
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-black ring-1 ring-white/30 shadow-sm"></div>
+                        <span className="text-xs sm:text-sm font-bold tracking-wide text-stone-100 max-w-[60px] sm:max-w-none truncate">
                             {isPlayerBlack ? playerLabel : aiLabel}
                         </span>
-                        {isPlayerBlack && <User className="w-3 h-3 text-stone-400" />}
-                        {!isPlayerBlack && <Bot className="w-3 h-3 text-stone-400" />}
                         
                         {/* Active Indicator Dot */}
                         {!isGameOver && currentTurn === 'black' && (
@@ -180,41 +178,40 @@ const GoBoard: React.FC<GoBoardProps> = ({
                     {captures && <div className="text-[10px] text-stone-400 font-mono bg-black/20 px-2 py-0.5 rounded">提子: {captures.black}</div>}
                 </div>
 
-                {/* Center Status / Grand Result Display */}
-                <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-2">
-                    {isGameOver ? (
-                        <div className="flex flex-col items-center animate-in zoom-in slide-in-from-bottom-4 duration-500">
-                             <div className="flex items-center gap-2 mb-1">
-                                 {winnerColor === 'black' && <Crown className="w-6 h-6 text-amber-400 fill-amber-400 animate-bounce" />}
-                                 <span className="text-3xl sm:text-4xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 drop-shadow-sm tracking-tight">
-                                    {winnerColor === 'black' ? '黑方胜' : '白方胜'}
-                                 </span>
-                                 {winnerColor === 'white' && <Crown className="w-6 h-6 text-amber-400 fill-amber-400 animate-bounce" />}
-                             </div>
-                             <div className="flex items-center gap-2 text-xs sm:text-sm text-amber-200/80 font-medium tracking-widest uppercase">
-                                <span className="bg-gradient-to-r from-transparent via-amber-500/20 to-transparent px-4 py-0.5 border-y border-amber-500/20">
-                                    胜 {winMargin?.toFixed(1)} 目
-                                </span>
-                             </div>
-                        </div>
-                    ) : (
+                {/* Center Status / Grand Result Display (Absolute Positioned on Game Over) */}
+                {isGameOver ? (
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center animate-in zoom-in slide-in-from-bottom-4 duration-500 pointer-events-none">
+                         <div className="flex items-center gap-2 mb-1">
+                             {winnerColor === 'black' && <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 fill-amber-400 animate-bounce" />}
+                             <span className="text-2xl sm:text-4xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 drop-shadow-sm tracking-tight whitespace-nowrap">
+                                {winnerColor === 'black' ? '黑方胜' : '白方胜'}
+                             </span>
+                             {winnerColor === 'white' && <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 fill-amber-400 animate-bounce" />}
+                         </div>
+                         <div className="flex items-center gap-2 text-xs sm:text-sm text-amber-200/80 font-medium tracking-widest uppercase">
+                            <span className="bg-stone-900/80 backdrop-blur-sm px-4 py-0.5 rounded-full border border-amber-500/30 whitespace-nowrap">
+                                胜 {winMargin?.toFixed(1)} 目
+                            </span>
+                         </div>
+                    </div>
+                ) : (
+                    /* Normal Playing Status (Flex centered) */
+                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-2">
                         <div className="flex flex-col items-center gap-1 opacity-50">
-                             <div className="w-16 h-px bg-white/20"></div>
-                             <div className="text-[12px] tracking-[0.2em] text-stone-400 font-bold">对弈</div>
-                             <div className="w-16 h-px bg-white/20"></div>
+                             <div className="w-12 sm:w-16 h-px bg-white/20"></div>
+                             <div className="text-[10px] sm:text-[12px] tracking-[0.2em] text-stone-400 font-bold">VS</div>
+                             <div className="w-12 sm:w-16 h-px bg-white/20"></div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
 
                 {/* White Player Info */}
-                <div className={`relative z-10 flex flex-col items-center gap-2 transition-all duration-500 min-w-[80px] ${!isGameOver && currentTurn === 'white' ? 'scale-105 opacity-100' : 'opacity-70'} ${isGameOver && winnerColor !== 'white' ? 'blur-[1px] opacity-40' : ''}`}>
-                    <div className={`relative flex items-center gap-2 px-3 py-1.5 rounded-full ${!isGameOver && currentTurn === 'white' ? 'bg-white/10 ring-1 ring-white/20 shadow-lg' : ''}`}>
-                        {!isPlayerBlack && <User className="w-3 h-3 text-stone-400" />}
-                        {isPlayerBlack && <Bot className="w-3 h-3 text-stone-400" />}
-                        <span className="text-sm font-bold tracking-wide text-stone-100">
+                <div className={`relative z-10 flex flex-col items-center gap-1.5 transition-all duration-500 ${isGameOver ? 'scale-75 opacity-30 blur-[0.5px]' : (currentTurn === 'white' ? 'scale-105 opacity-100' : 'opacity-70')} `}>
+                    <div className={`relative flex items-center gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full ${!isGameOver && currentTurn === 'white' ? 'bg-white/10 ring-1 ring-white/20 shadow-lg' : ''}`}>
+                        <span className="text-xs sm:text-sm font-bold tracking-wide text-stone-100 text-right max-w-[60px] sm:max-w-none truncate">
                             {!isPlayerBlack ? playerLabel : aiLabel}
                         </span>
-                        <div className="w-4 h-4 rounded-full bg-white shadow-sm"></div>
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-white shadow-sm"></div>
 
                         {/* Active Indicator Dot */}
                         {!isGameOver && currentTurn === 'white' && (

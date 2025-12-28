@@ -2,14 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zen Go - AI Weiqi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#e3c08d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>黑白问道 - 围棋 AI</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/4603/4603952.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
       body {
         font-family: 'Inter', sans-serif;
+        overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile PWA */
       }
       /* Custom wood texture effect using CSS patterns */
       .wood-texture {
@@ -41,7 +47,7 @@
 }
 </script>
 </head>
-  <body class="bg-stone-100 text-stone-900">
+  <body class="bg-stone-100 text-stone-900 select-none">
     <div id="root"></div>
   </body>
 </html>

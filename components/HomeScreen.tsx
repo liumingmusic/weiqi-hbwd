@@ -1,5 +1,5 @@
-import React from 'react';
-import { Play, History, Trophy, Heart, Brain } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Play, History, Trophy, Heart, Brain, Download } from 'lucide-react';
 
 interface HomeScreenProps {
   onNewGame: () => void;
@@ -8,6 +8,36 @@ interface HomeScreenProps {
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory, onTsumego }) => {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstallable, setIsInstallable] = useState(false);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    setDeferredPrompt(null);
+    setIsInstallable(false);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full p-6 animate-in fade-in duration-700">
       
@@ -49,6 +79,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNewGame, onHistory, onTsumego
           <History className="w-5 h-5" />
           <span>历史棋谱</span>
         </button>
+
+        {isInstallable && (
+          <button 
+            onClick={handleInstallClick}
+            className="w-full py-4 bg-teal-600 text-white text-lg font-bold rounded-xl shadow-md hover:bg-teal-700 hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-3 animate-pulse"
+          >
+            <Download className="w-5 h-5" />
+            <span>安装到本地</span>
+          </button>
+        )}
       </div>
 
       {/* Footer Decoration */}

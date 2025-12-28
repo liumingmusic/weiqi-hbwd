@@ -654,16 +654,16 @@ const App: React.FC = () => {
       {showSavedGames && <SavedGamesModal onLoad={loadSavedGame} onClose={() => setShowSavedGames(false)} />}
       
       {/* Header */}
-      <header className="w-full bg-white shadow-sm p-4 flex justify-between items-center z-30 sticky top-0">
+      <header className="w-full bg-white shadow-sm px-3 py-3 sm:p-4 flex justify-between items-center z-30 sticky top-0">
         <div className="flex items-center gap-2 cursor-pointer" onClick={goHome} title="返回首页">
-           <div className="w-8 h-8 bg-stone-900 rounded-md flex items-center justify-center text-white font-bold text-xl">禅</div>
-           <h1 className="text-xl font-bold text-stone-800 hidden sm:block">黑白问道</h1>
+           <div className="w-7 h-7 sm:w-8 sm:h-8 bg-stone-900 rounded-md flex items-center justify-center text-white font-bold text-lg sm:text-xl">禅</div>
+           <h1 className="text-lg sm:text-xl font-bold text-stone-800 hidden sm:block">黑白问道</h1>
         </div>
         
         {phase === 'playing' && (
-            <div className="flex items-center gap-2 bg-stone-100 rounded-full px-3 py-1 text-sm font-medium">
+            <div className="flex items-center gap-2 bg-stone-100 rounded-full px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-medium">
                 {isReviewMode ? (
-                    <span className="text-amber-600 flex items-center gap-1"><Eye className="w-4 h-4"/> 复盘模式</span>
+                    <span className="text-amber-600 flex items-center gap-1"><Eye className="w-3 h-3 sm:w-4 sm:h-4"/> 复盘模式</span>
                 ) : (
                     <span className="text-stone-600">
                         {config?.aiMode === 'online' ? '云端对战' : '本地对战'}
@@ -672,25 +672,25 @@ const App: React.FC = () => {
             </div>
         )}
         {phase === 'tsumego-playing' && (
-            <div className="flex items-center gap-2 bg-amber-100 text-amber-800 rounded-full px-3 py-1 text-sm font-bold">
+            <div className="flex items-center gap-2 bg-amber-100 text-amber-800 rounded-full px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm font-bold truncate max-w-[150px] sm:max-w-none">
                 死活题：{currentTsumego?.title}
             </div>
         )}
 
-        <div className="flex gap-2">
-             <button onClick={goHome} className="p-2 text-stone-600 hover:bg-stone-100 rounded-full" title="首页">
-                <Home className="w-5 h-5" />
+        <div className="flex gap-1 sm:gap-2">
+             <button onClick={goHome} className="p-1.5 sm:p-2 text-stone-600 hover:bg-stone-100 rounded-full" title="首页">
+                <Home className="w-4 h-4 sm:w-5 sm:h-5" />
              </button>
              {phase !== 'tsumego-playing' && (
-                <button onClick={() => setShowSavedGames(true)} className="p-2 text-stone-600 hover:bg-stone-100 rounded-full" title="本地存档">
-                    <FolderOpen className="w-5 h-5" />
+                <button onClick={() => setShowSavedGames(true)} className="p-1.5 sm:p-2 text-stone-600 hover:bg-stone-100 rounded-full" title="本地存档">
+                    <FolderOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
              )}
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 w-full max-w-5xl p-4 flex flex-col md:flex-row gap-6 items-start justify-center">
+      {/* Main Content: Reduced padding for mobile (px-2) */}
+      <main className="flex-1 w-full max-w-5xl px-2 py-4 sm:p-4 flex flex-col md:flex-row gap-4 sm:gap-6 items-start justify-center">
         
         {/* Left Column: Board */}
         <div className="w-full md:flex-1 flex justify-center flex-col items-center gap-4 relative z-0">
@@ -709,7 +709,7 @@ const App: React.FC = () => {
             
             {/* Notification */}
             {notification && (
-                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 px-6 py-3 rounded-full shadow-xl animate-in fade-in zoom-in duration-300 pointer-events-none font-bold ${
+                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 px-4 py-2 sm:px-6 sm:py-3 rounded-full shadow-xl animate-in fade-in zoom-in duration-300 pointer-events-none font-bold text-sm sm:text-base whitespace-nowrap ${
                     tsumegoStatus === 'success' ? 'bg-green-600 text-white' : 
                     tsumegoStatus === 'fail' ? 'bg-red-600 text-white' : 'bg-black/80 text-white'
                 }`}>
@@ -719,12 +719,12 @@ const App: React.FC = () => {
             
             {/* Review Controls */}
             {isReviewMode && (
-                <div className="flex items-center gap-4 bg-white p-2 rounded-xl shadow-sm border border-stone-200">
-                    <button onClick={() => jumpToMove(0)} className="p-2 hover:bg-stone-100 rounded"><Rewind className="w-5 h-5"/></button>
-                    <button onClick={() => jumpToMove(reviewIndex - 1)} className="p-2 hover:bg-stone-100 rounded"><SkipBack className="w-5 h-5"/></button>
-                    <span className="font-mono text-sm w-16 text-center">{reviewIndex} / {history.length}</span>
-                    <button onClick={() => jumpToMove(reviewIndex + 1)} className="p-2 hover:bg-stone-100 rounded"><SkipForward className="w-5 h-5"/></button>
-                    <button onClick={() => jumpToMove(history.length)} className="p-2 hover:bg-stone-100 rounded"><FastForward className="w-5 h-5"/></button>
+                <div className="flex items-center gap-2 sm:gap-4 bg-white p-2 rounded-xl shadow-sm border border-stone-200 overflow-x-auto w-full justify-center">
+                    <button onClick={() => jumpToMove(0)} className="p-2 hover:bg-stone-100 rounded"><Rewind className="w-4 h-4 sm:w-5 sm:h-5"/></button>
+                    <button onClick={() => jumpToMove(reviewIndex - 1)} className="p-2 hover:bg-stone-100 rounded"><SkipBack className="w-4 h-4 sm:w-5 sm:h-5"/></button>
+                    <span className="font-mono text-xs sm:text-sm w-12 sm:w-16 text-center">{reviewIndex} / {history.length}</span>
+                    <button onClick={() => jumpToMove(reviewIndex + 1)} className="p-2 hover:bg-stone-100 rounded"><SkipForward className="w-4 h-4 sm:w-5 sm:h-5"/></button>
+                    <button onClick={() => jumpToMove(history.length)} className="p-2 hover:bg-stone-100 rounded"><FastForward className="w-4 h-4 sm:w-5 sm:h-5"/></button>
                 </div>
             )}
         </div>
@@ -732,14 +732,14 @@ const App: React.FC = () => {
         {/* Right Column: Control Center */}
         <div className="w-full md:w-80 flex flex-col gap-4">
             
-            <div className="bg-white p-5 rounded-xl shadow-md border border-stone-200 transition-all duration-300">
+            <div className="bg-white p-3 sm:p-5 rounded-xl shadow-md border border-stone-200 transition-all duration-300">
                 
                 {phase === 'tsumego-playing' ? (
                     // --- TSUMEGO CONTROLS ---
                     <div className="space-y-4">
                         <div className="p-3 bg-amber-50 rounded-lg border border-amber-100 text-sm text-amber-900">
                             <h3 className="font-bold mb-1">题目描述</h3>
-                            <p>{currentTsumego?.description}</p>
+                            <p className="text-xs sm:text-sm">{currentTsumego?.description}</p>
                         </div>
                         
                         <div className="flex items-center gap-2 mb-4">
@@ -750,13 +750,13 @@ const App: React.FC = () => {
                             <>
                                 <button 
                                     onClick={handleTsumegoHint}
-                                    className="w-full py-3 bg-amber-100 text-amber-800 font-bold rounded-lg hover:bg-amber-200 flex items-center justify-center gap-2 border border-amber-200"
+                                    className="w-full py-2.5 sm:py-3 bg-amber-100 text-amber-800 font-bold rounded-lg hover:bg-amber-200 flex items-center justify-center gap-2 border border-amber-200 text-sm"
                                 >
-                                    <Lightbulb className="w-4 h-4 fill-amber-500 text-amber-600" /> AI 提示 (直接落子)
+                                    <Lightbulb className="w-4 h-4 fill-amber-500 text-amber-600" /> AI 提示
                                 </button>
                                 <button 
                                     onClick={() => restartGame()}
-                                    className="w-full py-3 bg-stone-100 text-stone-700 font-bold rounded-lg hover:bg-stone-200 flex items-center justify-center gap-2"
+                                    className="w-full py-2.5 sm:py-3 bg-stone-100 text-stone-700 font-bold rounded-lg hover:bg-stone-200 flex items-center justify-center gap-2 text-sm"
                                 >
                                     <RefreshCw className="w-4 h-4" /> 重置题目
                                 </button>
@@ -790,7 +790,7 @@ const App: React.FC = () => {
                         )}
                          <button 
                             onClick={() => setPhase('home')}
-                            className="w-full mt-4 py-2 text-stone-400 text-sm hover:text-stone-600"
+                            className="w-full mt-4 py-2 text-stone-400 text-xs sm:text-sm hover:text-stone-600"
                         >
                             退出练习
                         </button>
@@ -798,7 +798,7 @@ const App: React.FC = () => {
                 ) : (
                     // --- NORMAL GAME CONTROLS ---
                     <>
-                        <div className="flex items-center justify-between bg-stone-50 p-3 rounded-lg border border-stone-100 mb-4">
+                        <div className="flex items-center justify-between bg-stone-50 p-2 sm:p-3 rounded-lg border border-stone-100 mb-3 sm:mb-4">
                             <div className="flex items-center gap-2">
                                 {isAiThinking ? (
                                     <RefreshCw className="w-4 h-4 animate-spin text-amber-600" />
@@ -809,11 +809,11 @@ const App: React.FC = () => {
                                         <Disc className={`w-4 h-4 ${turn === 'black' ? 'text-black fill-current' : 'text-stone-400'}`} />
                                     )
                                 )}
-                                <span className="text-sm font-bold text-stone-700">
+                                <span className="text-xs sm:text-sm font-bold text-stone-700">
                                     {isAiThinking ? 'AI 思考中...' : ((phase === 'finished' || phase === 'scoring') ? '对局结束' : (turn === 'black' ? '黑方落子' : '白方落子'))}
                                 </span>
                             </div>
-                            <div className="flex items-center gap-1 text-xs text-stone-500 bg-white px-2 py-1 rounded border border-stone-200">
+                            <div className="flex items-center gap-1 text-[10px] sm:text-xs text-stone-500 bg-white px-2 py-1 rounded border border-stone-200">
                                 <Hash className="w-3 h-3" />
                                 <span className="font-mono">{history.length}</span>
                             </div>
@@ -824,7 +824,7 @@ const App: React.FC = () => {
                                 <div className="text-xs font-bold text-amber-800 mb-2 flex items-center gap-1">
                                     <Eye className="w-3 h-3" /> 形势判断 (预估)
                                 </div>
-                                <div className="space-y-1 text-sm">
+                                <div className="space-y-1 text-xs sm:text-sm">
                                     <div className="flex justify-between items-center text-stone-800">
                                         <span className="flex items-center gap-1"><div className="w-2 h-2 bg-black rounded-full"></div> 黑方</span>
                                         <span className="font-mono">{est.black} 目</span>
@@ -844,17 +844,17 @@ const App: React.FC = () => {
                         )}
 
                         {(phase === 'finished' || phase === 'scoring') ? (
-                            <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2">
+                            <div className="space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-bottom-2">
                                 <button 
                                     onClick={restartGame}
-                                    className="w-full py-3 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-700 flex items-center justify-center gap-2 shadow-sm transition-colors"
+                                    className="w-full py-2.5 sm:py-3 bg-amber-600 text-white font-bold rounded-lg hover:bg-amber-700 flex items-center justify-center gap-2 shadow-sm transition-colors text-sm sm:text-base"
                                 >
                                     <Repeat className="w-4 h-4" /> 再来一局
                                 </button>
                                 
                                 <button 
                                     onClick={() => setPhase('home')}
-                                    className="w-full py-3 bg-stone-100 text-stone-700 font-bold rounded-lg hover:bg-stone-200 flex items-center justify-center gap-2 transition-colors"
+                                    className="w-full py-2.5 sm:py-3 bg-stone-100 text-stone-700 font-bold rounded-lg hover:bg-stone-200 flex items-center justify-center gap-2 transition-colors text-sm sm:text-base"
                                 >
                                     <Home className="w-4 h-4" /> 返回首页
                                 </button>
@@ -862,55 +862,55 @@ const App: React.FC = () => {
                                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-stone-100 mt-2">
                                     <button 
                                         onClick={handleManualSave}
-                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-sm" 
+                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-xs sm:text-sm" 
                                     >
-                                        <Save className="w-4 h-4" /> 保存
+                                        <Save className="w-3 h-3 sm:w-4 sm:h-4" /> 保存
                                     </button>
                                     <button 
                                         onClick={enterReviewMode}
-                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-sm"
+                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-xs sm:text-sm"
                                     >
-                                        <RotateCcw className="w-4 h-4"/> 复盘
+                                        <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4"/> 复盘
                                     </button>
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                     <button 
                                         onClick={downloadSGF} 
-                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-sm" 
+                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-xs sm:text-sm" 
                                     >
-                                        <Download className="w-4 h-4" /> SGF
+                                        <Download className="w-3 h-3 sm:w-4 sm:h-4" /> SGF
                                     </button>
                                     <button 
                                         onClick={takeScreenshot} 
-                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-sm" 
+                                        className="py-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors text-xs sm:text-sm" 
                                     >
-                                        <Camera className="w-4 h-4" /> 截图
+                                        <Camera className="w-3 h-3 sm:w-4 sm:h-4" /> 截图
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="space-y-3">
+                            <div className="space-y-2 sm:space-y-3">
                                 {isReviewMode ? (
                                     <button 
                                         onClick={resumeGame}
-                                        className="w-full py-3 bg-amber-600 text-white rounded-lg text-sm font-bold hover:bg-amber-700 flex items-center justify-center gap-2 transition-colors shadow-sm"
+                                        className="w-full py-2.5 sm:py-3 bg-amber-600 text-white rounded-lg text-sm font-bold hover:bg-amber-700 flex items-center justify-center gap-2 transition-colors shadow-sm"
                                     >
                                         <Play className="w-4 h-4" /> 结束复盘
                                     </button>
                                 ) : (
                                     <>
-                                        <div className="grid grid-cols-2 gap-3">
+                                        <div className="grid grid-cols-2 gap-2 sm:gap-3">
                                             <button 
                                                 onClick={handlePass}
                                                 disabled={turn !== config?.playerColor || isAiThinking}
-                                                className="py-2.5 bg-stone-100 text-stone-700 font-medium rounded-lg text-sm hover:bg-stone-200 disabled:opacity-50 transition-colors"
+                                                className="py-2 sm:py-2.5 bg-stone-100 text-stone-700 font-medium rounded-lg text-xs sm:text-sm hover:bg-stone-200 disabled:opacity-50 transition-colors"
                                             >
                                                 停一手
                                             </button>
                                             <button 
                                                 onClick={handleUndo}
                                                 disabled={isAiThinking || history.length <= (config?.handicap || 0)}
-                                                className="py-2.5 bg-stone-100 text-stone-700 font-medium rounded-lg text-sm hover:bg-stone-200 disabled:opacity-50 flex items-center justify-center gap-1 transition-colors"
+                                                className="py-2 sm:py-2.5 bg-stone-100 text-stone-700 font-medium rounded-lg text-xs sm:text-sm hover:bg-stone-200 disabled:opacity-50 flex items-center justify-center gap-1 transition-colors"
                                             >
                                                 <Undo2 className="w-4 h-4"/> 悔棋
                                             </button>
@@ -918,7 +918,7 @@ const App: React.FC = () => {
                                         
                                         <button 
                                             onClick={toggleEstimation}
-                                            className={`w-full py-2.5 border rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all ${territoryMap ? 'bg-amber-100 border-amber-300 text-amber-800' : 'border-stone-200 text-stone-600 hover:bg-stone-50'}`}
+                                            className={`w-full py-2 sm:py-2.5 border rounded-lg text-xs sm:text-sm font-medium flex items-center justify-center gap-2 transition-all ${territoryMap ? 'bg-amber-100 border-amber-300 text-amber-800' : 'border-stone-200 text-stone-600 hover:bg-stone-50'}`}
                                         >
                                             <Eye className="w-4 h-4" /> 
                                             {territoryMap ? '关闭形势判断' : '形势判断'}
@@ -927,7 +927,7 @@ const App: React.FC = () => {
                                         <div className="grid grid-cols-3 gap-2 pt-2 border-t border-stone-100 mt-2">
                                             <button 
                                                 onClick={handleManualSave}
-                                                className="p-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex flex-col items-center justify-center gap-1 transition-colors" 
+                                                className="p-1.5 sm:p-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex flex-col items-center justify-center gap-1 transition-colors" 
                                                 title="保存"
                                             >
                                                 <Save className="w-4 h-4" /> 
@@ -935,7 +935,7 @@ const App: React.FC = () => {
                                             </button>
                                             <button 
                                                 onClick={downloadSGF} 
-                                                className="p-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex flex-col items-center justify-center gap-1 transition-colors" 
+                                                className="p-1.5 sm:p-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex flex-col items-center justify-center gap-1 transition-colors" 
                                                 title="SGF"
                                             >
                                                 <Download className="w-4 h-4" /> 
@@ -943,7 +943,7 @@ const App: React.FC = () => {
                                             </button>
                                             <button 
                                                 onClick={takeScreenshot} 
-                                                className="p-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex flex-col items-center justify-center gap-1 transition-colors" 
+                                                className="p-1.5 sm:p-2 text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 flex flex-col items-center justify-center gap-1 transition-colors" 
                                                 title="截图"
                                             >
                                                 <Camera className="w-4 h-4" /> 
@@ -954,13 +954,13 @@ const App: React.FC = () => {
                                         <div className="grid grid-cols-2 gap-2 pt-2">
                                             <button 
                                                 onClick={enterReviewMode}
-                                                className="py-2 border border-stone-200 text-stone-500 rounded-lg text-xs hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors"
+                                                className="py-1.5 sm:py-2 border border-stone-200 text-stone-500 rounded-lg text-[10px] sm:text-xs hover:bg-stone-50 flex items-center justify-center gap-1 transition-colors"
                                             >
                                                 <RotateCcw className="w-3 h-3"/> 复盘模式
                                             </button>
                                             <button 
                                                 onClick={handleResign}
-                                                className="py-2 border border-red-100 text-red-400 rounded-lg text-xs hover:bg-red-50 hover:text-red-600 transition-colors"
+                                                className="py-1.5 sm:py-2 border border-red-100 text-red-400 rounded-lg text-[10px] sm:text-xs hover:bg-red-50 hover:text-red-600 transition-colors"
                                             >
                                                 认输
                                             </button>
@@ -976,7 +976,7 @@ const App: React.FC = () => {
       </main>
       
       {/* Footer Version Info */}
-      <footer className="py-4 text-stone-400 text-xs font-mono opacity-50">
+      <footer className="py-2 sm:py-4 text-stone-400 text-[10px] sm:text-xs font-mono opacity-50">
         v1.0
       </footer>
     </div>
